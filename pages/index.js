@@ -24,6 +24,10 @@ export default function Home() {
         genres {
           name
         }
+        similar {
+          title
+          poster
+        }
       }
     }
   `;
@@ -60,6 +64,7 @@ export default function Home() {
             <th>Title</th>
             <th>Genre</th>
             <th>Rating</th>
+            <th>Recommended</th>
           </tr>
         </thead>
         <tbody>
@@ -79,6 +84,7 @@ export default function Home() {
                   )}
                 </td>
                 <td>{m.imdbRating}</td>
+                <td>{m.similar[0].title}</td>
               </tr>
             ))}
         </tbody>

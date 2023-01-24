@@ -23,6 +23,14 @@ const typeDefs = /* GraphQL */ `
   type Actor {
     name: String
   }
+
+  extend type Movie {
+    similar(first: Int = 4): [Movie!]! @cypher(statement: """
+    MATCH (this)-[:ACTED_IN|:IN_GENRE]-()-[:ACTED_IN|:IN_GENRE]-(rec:Movie)
+    WITH rec, COUNT(*) AS score ORDER BY score DESC
+    RETURN rec LIMIT $first
+    """)
+  }
 `;
 
 // Create a Neo4j driver instance to connect to Neo4j AuraDB
